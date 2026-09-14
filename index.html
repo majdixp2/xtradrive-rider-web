@@ -102,7 +102,7 @@ function render(session) {
         <div class="metric-row"><span class="m-label">المسافة</span><span class="m-value">${(((session.distance || 0) / 1000).toFixed(3))} كم</span></div>
         <div class="metric-row"><span class="m-label">قيمة الوقت</span><span class="m-value">${session.timeEarnings || "0.00"} ر.س</span></div>
         <div class="metric-row"><span class="m-label">قيمة المسافة</span><span class="m-value">${session.distanceEarnings || "0.00"} ر.س</span></div>
-        <div class="metric-row total"><span class="m-label">الإجمالي</span><span class="m-value">${session.totalEarnings || baseFare.toFixed(2)} ر.س</span></div>
+        <div class="metric-row total"><span class="m-label">الإجمالي</span><span class="m-value">${session.totalEarnings || baseFare.toFixed(5)} ر.س</span></div>
       </div>`;
   }
 
@@ -110,7 +110,7 @@ function render(session) {
   if (session.status === "completed") {
     invoiceHtml = `
       <div class="invoice-card">
-        <p class="invoice-title">🧾 النتيجة النهائية</p>
+        <p class="invoice-title">🧾 السعر النهائي</p>
         <div class="metric-row"><span class="m-label">الوقت</span><span class="m-value">${fmtTime(session.seconds)}</span></div>
         <div class="metric-row"><span class="m-label">المسافة</span><span class="m-value">${(((session.distance || 0) / 1000).toFixed(3))} كم</span></div>
         <div class="metric-row"><span class="m-label">فتح العداد</span><span class="m-value">${baseFare.toFixed(2)} ر.س</span></div>
