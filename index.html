@@ -97,7 +97,7 @@ function render(session) {
   if (session.status === "running" || session.status === "approved") {
     liveHtml = `
       <div class="live-card">
-        <p class="live-title">● مباشر</p>
+        <p class="live-title">● الرحلة فعالة</p>
         <div class="metric-row"><span class="m-label">الوقت</span><span class="m-value">${fmtTime(session.seconds)}</span></div>
         <div class="metric-row"><span class="m-label">المسافة</span><span class="m-value">${(((session.distance || 0) / 1000).toFixed(3))} كم</span></div>
         <div class="metric-row"><span class="m-label">قيمة الوقت</span><span class="m-value">${session.timeEarnings || "0.00"} ر.س</span></div>
