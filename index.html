@@ -31,14 +31,14 @@
   .pending { background: #0A2140; border: 1px solid #B0FC40; border-radius: 13px; padding: 14px; text-align: center; color: #B0FC40; font-weight: 700; font-size: 14px; margin-bottom: 12px; }
   .live-card, .invoice-card { background: #0A2140; border: 1px solid #1C3A63; border-radius: 14px; padding: 16px; margin-bottom: 14px; }
   .live-title { color: #B0FC40; font-weight: 800; font-size: 13px; margin: 0 0 10px; }
-  .invoice-title { color: #fff; font-weight: 800; font-size: 15px; margin: 0 0 10px; }
+  .invoice-title { color: #FFD84D; font-weight: 800; font-size: 15px; margin: 0 0 10px; }
   .metric-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #142238; }
   .metric-row:last-child { border-bottom: none; }
   .metric-row .m-label { color: #AFC1D6; font-size: 13px; }
   .metric-row .m-value { color: #fff; font-size: 14px; font-weight: 700; }
   .metric-row.total { border-top: 2px solid #B0FC40; margin-top: 4px; padding-top: 10px; }
   .metric-row.total .m-label { color: #fff; font-weight: 800; font-size: 14px; }
-  .metric-row.total .m-value { color: #B0FC40; font-size: 18px; font-weight: 900; }
+  .metric-row.total .m-value { color: #B0FC40; font-size: 24px; font-weight: 900; }
   .promo { margin-top: 26px; text-align: center; padding-top: 18px; border-top: 1px dashed #1C3A63; }
   .promo p { color: #8CA3BF; font-size: 12px; margin: 0 0 10px; }
   .promo a, .promo .soon { display: inline-block; background: #13243A; border: 1px solid #B0FC40; color: #B0FC40; border-radius: 10px; padding: 10px 18px; font-size: 13px; font-weight: 700; text-decoration: none; }
@@ -97,7 +97,7 @@ function render(session) {
   if (session.status === "running" || session.status === "approved") {
     liveHtml = `
       <div class="live-card">
-        <p class="live-title">● الرحلة فعالة</p>
+        <p class="live-title">● مباشر</p>
         <div class="metric-row"><span class="m-label">الوقت</span><span class="m-value">${fmtTime(session.seconds)}</span></div>
         <div class="metric-row"><span class="m-label">المسافة</span><span class="m-value">${(((session.distance || 0) / 1000).toFixed(3))} كم</span></div>
         <div class="metric-row"><span class="m-label">قيمة الوقت</span><span class="m-value">${session.timeEarnings || "0.00"} ر.س</span></div>
