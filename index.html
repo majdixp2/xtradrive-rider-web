@@ -5,48 +5,78 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>XtraDrive</title>
 <style>
-  :root { color-scheme: dark; }
+  :root {
+    color-scheme: light dark;
+    --bg: #060D19;
+    --surface: #0A2140;
+    --surface-alt: #13243A;
+    --border: #1C3A63;
+    --divider: #142238;
+    --text: #FFFFFF;
+    --muted: #AFC1D6;
+    --accent: #B0FC40;
+    --accent-text: #B0FC40;
+    --accent-on-fill: #00112B;
+    --danger: #FF6B64;
+    --gold: #FFD84D;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #F4F6F9;
+      --surface: #FFFFFF;
+      --surface-alt: #EEF1F6;
+      --border: #E1E6EC;
+      --divider: #E1E6EC;
+      --text: #101A2B;
+      --muted: #5B6B7F;
+      --accent: #B0FC40;
+      --accent-text: #3B8F1E;
+      --accent-on-fill: #00112B;
+      --danger: #D8393A;
+      --gold: #B8860B;
+    }
+  }
   * { box-sizing: border-box; }
   body {
-    margin: 0; min-height: 100vh; background: #060D19; color: #fff;
+    margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
     font-family: -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
     display: flex; justify-content: center; padding: 28px 16px 60px;
   }
   .wrap { width: 100%; max-width: 420px; }
-  .logo { color: #B0FC40; font-size: 28px; font-weight: 900; text-align: center; margin-bottom: 6px; }
-  .title { color: #fff; font-size: 19px; font-weight: 700; text-align: center; margin: 0 0 20px; }
-  .muted { color: #AFC1D6; font-size: 16px; text-align: center; margin-top: 40px; }
-  .error { color: #FF6B64; font-size: 15px; text-align: center; margin-top: 40px; }
-  .card { background: #0A2140; border: 1px solid #1C3A63; border-radius: 14px; padding: 15px; margin-bottom: 12px; }
-  .card .label { color: #AFC1D6; font-size: 13px; }
-  .card .value { color: #fff; font-size: 18px; font-weight: 800; margin-top: 4px; }
+  .logo { color: var(--accent-text); font-size: 28px; font-weight: 900; text-align: center; margin-bottom: 6px; }
+  .title { color: var(--text); font-size: 19px; font-weight: 700; text-align: center; margin: 0 0 20px; }
+  .muted { color: var(--muted); font-size: 16px; text-align: center; margin-top: 40px; }
+  .error { color: var(--danger); font-size: 15px; text-align: center; margin-top: 40px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 15px; margin-bottom: 12px; }
+  .card .label { color: var(--muted); font-size: 13px; }
+  .card .value { color: var(--text); font-size: 18px; font-weight: 800; margin-top: 4px; }
   .rates { display: flex; gap: 8px; margin-bottom: 12px; }
-  .rate-card { flex: 1; background: #0A2140; border: 1px solid #1C3A63; border-radius: 12px; padding: 10px; text-align: center; }
-  .rate-card .label { color: #AFC1D6; font-size: 11px; display: block; }
-  .rate-card .value { color: #fff; font-size: 14px; font-weight: 700; display: block; margin-top: 4px; }
+  .rate-card { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 10px; text-align: center; }
+  .rate-card .label { color: var(--muted); font-size: 11px; display: block; }
+  .rate-card .value { color: var(--text); font-size: 14px; font-weight: 700; display: block; margin-top: 4px; }
   .btn { display: block; width: 100%; border: none; border-radius: 13px; padding: 15px; font-size: 16px; font-weight: 800; cursor: pointer; text-align: center; text-decoration: none; }
-  .btn-primary { background: #B0FC40; color: #00112B; }
+  .btn-primary { background: var(--accent); color: var(--accent-on-fill); }
   .btn-primary:disabled { opacity: 0.6; animation: none; }
   .btn-primary:not(:disabled) { animation: pulseGlow 1.6s ease-in-out infinite; }
   @keyframes pulseGlow {
     0%, 100% { box-shadow: 0 0 0 0 rgba(176, 252, 64, 0.55); transform: scale(1); }
     50% { box-shadow: 0 0 0 10px rgba(176, 252, 64, 0); transform: scale(1.02); }
   }
-  .btn-outline { background: transparent; border: 1px solid #B0FC40; color: #B0FC40; margin-top: 14px; }
-  .pending { background: #0A2140; border: 1px solid #B0FC40; border-radius: 13px; padding: 14px; text-align: center; color: #B0FC40; font-weight: 700; font-size: 14px; margin-bottom: 12px; }
-  .live-card, .invoice-card { background: #0A2140; border: 1px solid #1C3A63; border-radius: 14px; padding: 16px; margin-bottom: 14px; }
-  .live-title { color: #B0FC40; font-weight: 800; font-size: 13px; margin: 0 0 10px; }
-  .invoice-title { color: #FFD84D; font-weight: 800; font-size: 15px; margin: 0 0 10px; }
-  .metric-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #142238; }
+  .btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent-text); margin-top: 14px; }
+  .pending { background: var(--surface); border: 1px solid var(--accent); border-radius: 13px; padding: 14px; text-align: center; color: var(--accent-text); font-weight: 700; font-size: 14px; margin-bottom: 12px; }
+  .live-card, .invoice-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 14px; }
+  .live-title { color: var(--accent-text); font-weight: 800; font-size: 13px; margin: 0 0 10px; }
+  .invoice-title { color: var(--gold); font-weight: 800; font-size: 15px; margin: 0 0 10px; }
+  .metric-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--divider); }
   .metric-row:last-child { border-bottom: none; }
-  .metric-row .m-label { color: #AFC1D6; font-size: 13px; }
-  .metric-row .m-value { color: #fff; font-size: 14px; font-weight: 700; }
-  .metric-row.total { border-top: 2px solid #B0FC40; margin-top: 4px; padding-top: 10px; }
-  .metric-row.total .m-label { color: #fff; font-weight: 800; font-size: 14px; }
-  .metric-row.total .m-value { color: #B0FC40; font-size: 24px; font-weight: 900; }
-  .promo { margin-top: 26px; text-align: center; padding-top: 18px; border-top: 1px dashed #1C3A63; }
-  .promo p { color: #8CA3BF; font-size: 12px; margin: 0 0 10px; }
-  .promo a, .promo .soon { display: inline-block; background: #13243A; border: 1px solid #B0FC40; color: #B0FC40; border-radius: 10px; padding: 10px 18px; font-size: 13px; font-weight: 700; text-decoration: none; }
+  .metric-row .m-label { color: var(--muted); font-size: 13px; }
+  .metric-row .m-value { color: var(--text); font-size: 14px; font-weight: 700; }
+  .metric-row.total { border-top: 2px solid var(--accent); margin-top: 4px; padding-top: 10px; }
+  .metric-row.total .m-label { color: var(--text); font-weight: 800; font-size: 14px; }
+  .metric-row.total .m-value { color: var(--accent-text); font-size: 24px; font-weight: 900; }
+  .promo { margin-top: 26px; text-align: center; padding-top: 18px; border-top: 1px dashed var(--border); }
+  .promo p { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
+  .promo a, .promo .soon { display: inline-block; background: var(--surface-alt); border: 1px solid var(--accent); color: var(--accent-text); border-radius: 10px; padding: 10px 18px; font-size: 13px; font-weight: 700; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -179,4 +209,3 @@ setInterval(tick, 1500);
 </script>
 </body>
 </html>
-
