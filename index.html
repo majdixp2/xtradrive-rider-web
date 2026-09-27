@@ -77,6 +77,7 @@
   .promo { margin-top: 26px; text-align: center; padding-top: 18px; border-top: 1px dashed var(--border); }
   .promo p { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
   .promo a, .promo .soon { display: inline-block; background: var(--surface-alt); border: 1px solid var(--accent); color: var(--accent-text); border-radius: 10px; padding: 10px 18px; font-size: 13px; font-weight: 700; text-decoration: none; }
+  .live-note { color: var(--muted); font-size: 12px; text-align: center; margin: 8px 0 0; }
 </style>
 </head>
 <body>
@@ -107,6 +108,47 @@ function promoBlock() {
     </div>`;
 }
 
+// ---- Local live counting ----
+// The driver's phone sends updates irregularly while its screen is off, so the
+// page keeps counting time and money by itself between updates and corrects
+// itself whenever fresh data arrives. Distance only changes with driver data.
+let anchor = null;      // last driver data + the moment it arrived
+let lastShown = 0;      // never show the clock going backwards
+
+function updateAnchor(session) {
+  const seconds = Number(session.seconds) || 0;
+  if (session.status !== "running") { anchor = null; lastShown = 0; return; }
+  if (!anchor || anchor.seconds !== seconds || anchor.distance !== session.distance) {
+    anchor = {
+      seconds,
+      distance: session.distance,
+      timeEarnings: Number(session.timeEarnings) || 0,
+      totalEarnings: Number(session.totalEarnings) || Number(session.baseFare) || 0,
+      receivedAt: Date.now(),
+    };
+  }
+}
+
+function liveValues(session) {
+  const baseTotal = Number(session.totalEarnings) || Number(session.baseFare) || 0;
+  if (session.status !== "running" || !anchor) {
+    return { seconds: Number(session.seconds) || 0, timeEarnings: session.timeEarnings || "0.00", total: baseTotal.toFixed(2), stale: false };
+  }
+  const pricePerSecond = Number(session.pricePerSecond) || 0;
+  const sinceUpdate = Math.max(0, Math.floor((Date.now() - anchor.receivedAt) / 1000));
+  let seconds = anchor.seconds + sinceUpdate;
+  // A fresh update can land a moment "behind" our estimate; hold instead of jumping back.
+  if (seconds < lastShown && lastShown - seconds <= 3) seconds = lastShown;
+  lastShown = seconds;
+  const extra = (seconds - anchor.seconds) * pricePerSecond;
+  return {
+    seconds,
+    timeEarnings: (anchor.timeEarnings + extra).toFixed(2),
+    total: (anchor.totalEarnings + extra).toFixed(2),
+    stale: sinceUpdate > 20,
+  };
+}
+
 function render(session) {
   if (!session) {
     app.innerHTML = `
@@ -130,14 +172,16 @@ function render(session) {
 
   let liveHtml = "";
   if (session.status === "running" || session.status === "approved") {
+    const live = liveValues(session);
     liveHtml = `
       <div class="live-card">
         <p class="live-title">● مباشر</p>
-        <div class="metric-row"><span class="m-label">الوقت</span><span class="m-value">${fmtTime(session.seconds)}</span></div>
+        <div class="metric-row"><span class="m-label">الوقت</span><span class="m-value">${fmtTime(live.seconds)}</span></div>
         <div class="metric-row"><span class="m-label">المسافة</span><span class="m-value">${(((session.distance || 0) / 1000).toFixed(3))} كم</span></div>
-        <div class="metric-row"><span class="m-label">قيمة الوقت</span><span class="m-value">${session.timeEarnings || "0.00"} ر.س</span></div>
+        <div class="metric-row"><span class="m-label">قيمة الوقت</span><span class="m-value">${live.timeEarnings} ر.س</span></div>
         <div class="metric-row"><span class="m-label">قيمة المسافة</span><span class="m-value">${session.distanceEarnings || "0.00"} ر.س</span></div>
-        <div class="metric-row total"><span class="m-label">الإجمالي</span><span class="m-value">${session.totalEarnings || baseFare.toFixed(2)} ر.س</span></div>
+        <div class="metric-row total"><span class="m-label">الإجمالي</span><span class="m-value">${live.total} ر.س</span></div>
+        ${live.stale ? `<p class="live-note">الوقت يُحسب مباشرة، والمسافة تتحدث عند وصول بيانات السائق</p>` : ""}
       </div>`;
   }
 
@@ -198,6 +242,7 @@ async function tick() {
     const res = await fetch(`${API_URL}/sessions/${encodeURIComponent(code)}`, { cache: "no-store" });
     if (!res.ok) throw new Error("not-found");
     lastSession = await res.json();
+    updateAnchor(lastSession);
     render(lastSession);
   } catch {
     render(null);
@@ -206,6 +251,10 @@ async function tick() {
 
 tick();
 setInterval(tick, 1500);
+// Redraw the live counter every second between server updates.
+setInterval(() => {
+  if (lastSession && lastSession.status === "running") render(lastSession);
+}, 1000);
 </script>
 </body>
 </html>
