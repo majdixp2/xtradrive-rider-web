@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>حذف الحساب | XtraDrive Account Deletion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F7FA; --paper: #FFFFFF; --ink: #14213D; --muted: #56627A;
+    --line: #DCE2EC; --brand: #14213D; --lime: #B8D82E;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0E1628; --paper: #16213A; --ink: #E8EDF6; --muted: #A3AEC4;
+            --line: #2A3754; --brand: #0A1122; color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+    line-height: 1.8; font-size: 17px;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  header {
+    background: var(--brand); color: #fff;
+    padding: calc(env(safe-area-inset-top, 0px) + 28px) 20px 28px;
+    border-bottom: 4px solid var(--lime);
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .app { font-weight: 700; font-size: 20px; letter-spacing: .3px; }
+  .lang {
+    background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.45);
+    border-radius: 999px; padding: 6px 16px; font: inherit; font-size: 15px; cursor: pointer;
+  }
+  .lang:focus-visible, a:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+  h1 { font-size: 30px; line-height: 1.3; margin: 18px 0 6px; }
+  .date { color: rgba(255,255,255,.75); margin: 0; font-size: 15px; }
+  main { padding: 8px 20px 48px; }
+  article { background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
+            padding: 8px 24px 20px; margin-top: 20px; }
+  h2 { font-size: 20px; margin: 26px 0 6px; }
+  p, li { color: var(--ink); }
+  ul { padding-inline-start: 22px; margin: 6px 0; }
+  .note { color: var(--muted); }
+  a { color: inherit; text-decoration-color: var(--lime); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  [hidden] { display: none !important; }
+  .en { font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .field { margin: 14px 0; }
+  label { display: block; font-weight: 600; margin-bottom: 6px; }
+  input { width: 100%; font: inherit; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink); }
+  input.code { letter-spacing: 8px; text-align: center; font-size: 22px; font-weight: 700; }
+  .btn { width: 100%; font: inherit; font-weight: 700; padding: 13px; border-radius: 10px; border: 0; background: var(--brand); color: #fff; cursor: pointer; margin-top: 8px; }
+  .btn.danger { background: #B42318; }
+  .btn:disabled { opacity: .6; cursor: default; }
+  .link { background: none; border: 0; color: inherit; text-decoration: underline; text-decoration-color: var(--lime); font: inherit; cursor: pointer; padding: 8px 0; }
+  .msg { padding: 12px 14px; border-radius: 10px; margin: 12px 0; }
+  .msg.err { background: rgba(180,35,24,.1); color: #B42318; }
+  .msg.ok { background: rgba(184,216,46,.18); }
+  @media (prefers-color-scheme: dark) { .msg.err { color: #FF8A80; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="top">
+      <span class="app">XtraDrive</span>
+      <button class="lang" id="langBtn" type="button">English</button>
+    </div>
+    <h1 id="title">حذف حساب السائق</h1>
+    <p class="date" id="sub">تطبيق XtraDrive · المطوّر: XtraDrive</p>
+  </div>
+</header>
+
+<main class="wrap">
+<article>
+  <div data-l="ar">
+    <h2>ما الذي يحدث عند الحذف؟</h2>
+    <ul>
+      <li>يُسجَّل خروجك من التطبيق فورًا.</li>
+      <li>تُحذف نهائيًا بعد <strong>30 يومًا</strong>: بريدك، واسمك، ورقم جوالك، ونوع سيارتك ورقم اللوحة، وأعداد جلساتك.</li>
+      <li>خلال الـ30 يومًا تستطيع استرجاع حسابك بتسجيل الدخول في التطبيق مرة أخرى.</li>
+      <li>نحتفظ بعد ذلك بإحصائيات عامة فقط (مثل عدد الجلسات في كل يوم) بدون أي بيانات تدل عليك.</li>
+    </ul>
+    <p class="note">يمكنك أيضًا الحذف من داخل التطبيق: حسابي ← حذف الحساب.</p>
+  </div>
+  <div data-l="en" hidden>
+    <h2>What happens when you delete?</h2>
+    <ul>
+      <li>You are signed out of the app immediately.</li>
+      <li>Permanently deleted after <strong>30 days</strong>: your email, name, phone number, vehicle model and license plate, and your session counts.</li>
+      <li>Within those 30 days, you can restore your account by signing in to the app again.</li>
+      <li>After that, we keep only general statistics (such as sessions per day) with no data that identifies you.</li>
+    </ul>
+    <p class="note">You can also delete from inside the app: My Profile → Delete Account.</p>
+  </div>
+
+  <h2 id="formTitle">طلب الحذف</h2>
+
+  <div id="step1">
+    <div class="field">
+      <label for="email" id="emailLabel">البريد الإلكتروني المسجل في التطبيق</label>
+      <input id="email" type="email" autocomplete="email" dir="ltr" placeholder="you@example.com">
+    </div>
+    <button class="btn" id="sendBtn" type="button">إرسال رمز التأكيد</button>
+  </div>
+
+  <div id="step2" hidden>
+    <p id="sentText"></p>
+    <div class="field">
+      <label for="code" id="codeLabel">رمز التأكيد (6 أرقام)</label>
+      <input id="code" class="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" dir="ltr" placeholder="••••••">
+    </div>
+    <button class="btn danger" id="deleteBtn" type="button">احذف حسابي</button>
+    <button class="link" id="backBtn" type="button">تغيير البريد</button>
+  </div>
+
+  <div id="msg" class="msg" hidden></div>
+
+  <p class="note" id="helpText">إذا لم يصلك الرمز، افحص مجلد الرسائل غير المرغوبة، أو راسلنا من بريدك المسجل على <a class="mail" href="mailto:xtradriveapp@gmail.com">xtradriveapp@gmail.com</a> وسننفّذ الطلب.</p>
+</article>
+</main>
+
+<script>
+  const API = "https://xtradrive-backend.vercel.app/api";
+  const $ = (id) => document.getElementById(id);
+  let lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "ar";
+
+  const T = {
+    ar: {
+      title: "حذف حساب السائق", sub: "تطبيق XtraDrive · المطوّر: XtraDrive", btn: "English", dir: "rtl",
+      formTitle: "طلب الحذف", emailLabel: "البريد الإلكتروني المسجل في التطبيق", send: "إرسال رمز التأكيد",
+      codeLabel: "رمز التأكيد (6 أرقام)", del: "احذف حسابي", back: "تغيير البريد",
+      sent: (e) => `أرسلنا رمز التأكيد إلى ${e}`,
+      help: 'إذا لم يصلك الرمز، افحص مجلد الرسائل غير المرغوبة، أو راسلنا من بريدك المسجل على <a class="mail" href="mailto:xtradriveapp@gmail.com">xtradriveapp@gmail.com</a> وسننفّذ الطلب.',
+      confirm: "هل أنت متأكد؟ سيُحذف حسابك نهائيًا بعد 30 يومًا.",
+      done: (d) => `تم استلام طلب الحذف. سُجّل خروجك، وسيُحذف حسابك نهائيًا في ${d}. لاسترجاعه قبل ذلك، سجّل الدخول في التطبيق.`,
+      errors: {
+        "invalid-email": "اكتب بريدًا إلكترونيًا صحيحًا", "no-account": "لا يوجد حساب بهذا البريد",
+        "invalid-code": "الرمز غير صحيح", "code-expired": "انتهت صلاحية الرمز، اطلب رمزًا جديدًا",
+        "wait-a-minute": "انتظر دقيقة قبل طلب رمز جديد", "too-many-requests": "محاولات كثيرة، حاول بعد ساعة",
+        "email-failed": "تعذر إرسال البريد الآن. راسلنا على xtradriveapp@gmail.com", network: "تحقق من اتصال الإنترنت وحاول مجددًا",
+        other: "حدث خطأ، حاول مجددًا",
+      },
+    },
+    en: {
+      title: "Delete Driver Account", sub: "XtraDrive app · Developer: XtraDrive", btn: "العربية", dir: "ltr",
+      formTitle: "Request deletion", emailLabel: "Email registered in the app", send: "Send confirmation code",
+      codeLabel: "Confirmation code (6 digits)", del: "Delete my account", back: "Change email",
+      sent: (e) => `We sent a confirmation code to ${e}`,
+      help: 'If the code doesn\'t arrive, check your spam folder, or email us from your registered address at <a class="mail" href="mailto:xtradriveapp@gmail.com">xtradriveapp@gmail.com</a> and we\'ll handle it.',
+      confirm: "Are you sure? Your account will be permanently deleted in 30 days.",
+      done: (d) => `Deletion requested. You've been signed out, and your account will be permanently deleted on ${d}. To restore it before then, sign in to the app.`,
+      errors: {
+        "invalid-email": "Enter a valid email address", "no-account": "No account with this email",
+        "invalid-code": "Incorrect code", "code-expired": "The code expired. Request a new one",
+        "wait-a-minute": "Wait a minute before requesting another code", "too-many-requests": "Too many attempts. Try again in an hour",
+        "email-failed": "Couldn't send the email right now. Email us at xtradriveapp@gmail.com", network: "Check your internet connection and try again",
+        other: "Something went wrong. Please try again",
+      },
+    },
+  };
+
+  function applyLang() {
+    const t = T[lang];
+    document.documentElement.lang = lang;
+    document.documentElement.dir = t.dir;
+    document.body.classList.toggle("en", lang === "en");
+    document.querySelectorAll("[data-l]").forEach((el) => { el.hidden = el.dataset.l !== lang; });
+    $("title").textContent = t.title; $("sub").textContent = t.sub; $("langBtn").textContent = t.btn;
+    $("formTitle").textContent = t.formTitle; $("emailLabel").textContent = t.emailLabel;
+    $("sendBtn").textContent = t.send; $("codeLabel").textContent = t.codeLabel;
+    $("deleteBtn").textContent = t.del; $("backBtn").textContent = t.back; $("helpText").innerHTML = t.help;
+    if (!$("step2").hidden) $("sentText").textContent = t.sent(email());
+  }
+
+  const email = () => $("email").value.trim().toLowerCase();
+  function show(text, ok) { const m = $("msg"); m.hidden = !text; m.textContent = text || ""; m.className = "msg " + (ok ? "ok" : "err"); }
+  function errorText(code) { const e = T[lang].errors; return e[code] || e.other; }
+
+  async function post(path, body) {
+    let res;
+    try {
+      res = await fetch(API + path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    } catch { throw "network"; }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.success) throw data.error || "other";
+    return data;
+  }
+
+  $("sendBtn").addEventListener("click", async () => {
+    show("");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email())) return show(errorText("invalid-email"));
+    $("sendBtn").disabled = true;
+    try {
+      await post("/auth/request-code", { email: email(), purpose: "delete" });
+      $("step1").hidden = true; $("step2").hidden = false;
+      $("sentText").textContent = T[lang].sent(email());
+      $("code").focus();
+    } catch (code) { show(errorText(code)); }
+    finally { $("sendBtn").disabled = false; }
+  });
+
+  $("deleteBtn").addEventListener("click", async () => {
+    show("");
+    const code = $("code").value.replace(/\D/g, "");
+    if (code.length !== 6) return show(errorText("invalid-code"));
+    if (!confirm(T[lang].confirm)) return;
+    $("deleteBtn").disabled = true;
+    try {
+      const data = await post("/auth/delete-account", { email: email(), code });
+      const date = new Date(data.deleteAfter).toLocaleDateString(lang === "ar" ? "ar-SA" : "en-GB", { day: "numeric", month: "long", year: "numeric" });
+      $("step2").hidden = true;
+      show(T[lang].done(date), true);
+    } catch (err) { show(errorText(err)); $("deleteBtn").disabled = false; }
+  });
+
+  $("backBtn").addEventListener("click", () => { $("step2").hidden = true; $("step1").hidden = false; show(""); });
+  $("langBtn").addEventListener("click", () => { lang = lang === "ar" ? "en" : "ar"; applyLang(); });
+  applyLang();
+</script>
+</body>
+</html>
