@@ -120,12 +120,12 @@
 
   <div id="msg" class="msg" hidden></div>
 
-  <p class="note" id="helpText">إذا لم يصلك الرمز، افحص مجلد الرسائل غير المرغوبة، أو راسلنا من بريدك المسجل على <a class="mail" href="mailto:xtradriveapp@gmail.com">xtradriveapp@gmail.com</a> وسننفّذ الطلب.</p>
+  <p class="note" id="helpText">إذا لم يصلك الرمز، افحص مجلد الرسائل غير المرغوبة، أو راسلنا من بريدك المسجل على <a class="mail" href="mailto:support@xtradrive.app">support@xtradrive.app</a> وسننفّذ الطلب.</p>
 </article>
 </main>
 
 <script>
-  const API = "https://xtradrive-backend.vercel.app/api";
+  const API = "https://api.xtradrive.app/api";
   const $ = (id) => document.getElementById(id);
   let lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "ar";
 
@@ -135,14 +135,14 @@
       formTitle: "طلب الحذف", emailLabel: "البريد الإلكتروني المسجل في التطبيق", send: "إرسال رمز التأكيد",
       codeLabel: "رمز التأكيد (6 أرقام)", del: "احذف حسابي", back: "تغيير البريد",
       sent: (e) => `أرسلنا رمز التأكيد إلى ${e}`,
-      help: 'إذا لم يصلك الرمز، افحص مجلد الرسائل غير المرغوبة، أو راسلنا من بريدك المسجل على <a class="mail" href="mailto:xtradriveapp@gmail.com">xtradriveapp@gmail.com</a> وسننفّذ الطلب.',
+      help: 'إذا لم يصلك الرمز، افحص مجلد الرسائل غير المرغوبة، أو راسلنا من بريدك المسجل على <a class="mail" href="mailto:support@xtradrive.app">support@xtradrive.app</a> وسننفّذ الطلب.',
       confirm: "هل أنت متأكد؟ سيُحذف حسابك نهائيًا بعد 30 يومًا.",
       done: (d) => `تم استلام طلب الحذف. سُجّل خروجك، وسيُحذف حسابك نهائيًا في ${d}. لاسترجاعه قبل ذلك، سجّل الدخول في التطبيق.`,
       errors: {
         "invalid-email": "اكتب بريدًا إلكترونيًا صحيحًا", "no-account": "لا يوجد حساب بهذا البريد",
         "invalid-code": "الرمز غير صحيح", "code-expired": "انتهت صلاحية الرمز، اطلب رمزًا جديدًا",
         "wait-a-minute": "انتظر دقيقة قبل طلب رمز جديد", "too-many-requests": "محاولات كثيرة، حاول بعد ساعة",
-        "email-failed": "تعذر إرسال البريد الآن. راسلنا على xtradriveapp@gmail.com", network: "تحقق من اتصال الإنترنت وحاول مجددًا",
+        "email-failed": "تعذر إرسال البريد الآن. راسلنا على support@xtradrive.app", network: "تحقق من اتصال الإنترنت وحاول مجددًا",
         other: "حدث خطأ، حاول مجددًا",
       },
     },
@@ -151,14 +151,14 @@
       formTitle: "Request deletion", emailLabel: "Email registered in the app", send: "Send confirmation code",
       codeLabel: "Confirmation code (6 digits)", del: "Delete my account", back: "Change email",
       sent: (e) => `We sent a confirmation code to ${e}`,
-      help: 'If the code doesn\'t arrive, check your spam folder, or email us from your registered address at <a class="mail" href="mailto:xtradriveapp@gmail.com">xtradriveapp@gmail.com</a> and we\'ll handle it.',
+      help: 'If the code doesn\'t arrive, check your spam folder, or email us from your registered address at <a class="mail" href="mailto:support@xtradrive.app">support@xtradrive.app</a> and we\'ll handle it.',
       confirm: "Are you sure? Your account will be permanently deleted in 30 days.",
       done: (d) => `Deletion requested. You've been signed out, and your account will be permanently deleted on ${d}. To restore it before then, sign in to the app.`,
       errors: {
         "invalid-email": "Enter a valid email address", "no-account": "No account with this email",
         "invalid-code": "Incorrect code", "code-expired": "The code expired. Request a new one",
         "wait-a-minute": "Wait a minute before requesting another code", "too-many-requests": "Too many attempts. Try again in an hour",
-        "email-failed": "Couldn't send the email right now. Email us at xtradriveapp@gmail.com", network: "Check your internet connection and try again",
+        "email-failed": "Couldn't send the email right now. Email us at support@xtradrive.app", network: "Check your internet connection and try again",
         other: "Something went wrong. Please try again",
       },
     },
